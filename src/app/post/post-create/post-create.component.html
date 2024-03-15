@@ -1,6 +1,6 @@
 <p>post-create works!</p>
 <input type="text" [value]="'ciao'">
-<textarea name="commend" id="" cols="30" rows="10" [value]="newPost"></textarea>
+<textarea name="commend" id="" cols="30" rows="10" [value]="newPost" #PostInput></textarea>
 <hr>
-  <button (click)="onAddPost()">Save Post</button>
+  <button (click)="onAddPost(PostInput)">Save Post</button>
   <p>{{newPost}}</p>
