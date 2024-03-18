@@ -1,10 +1,13 @@
 <mat-card>
   <mat-form-field>
-    <textarea matInput name="commend2" id="text2" cols="10" rows="3" placeholder="Post" [(ngModel)]="enteredValue"></textarea>
+    <input type="text" matInput name="title" id="title" placeholder="Title" [(ngModel)]="enteredTitle">
+  </mat-form-field>
+  <mat-form-field>
+    <textarea matInput name="commend2" id="text2" cols="10" rows="3" placeholder="Post" [(ngModel)]="enteredContent"></textarea>
   </mat-form-field>
   <button mat-raised-button
    color="accent"
-   (click)="onAddPost(PostInput)">Save Post
+   (click)="onAddPost()">Save Post
   </button>
 </mat-card>
 
