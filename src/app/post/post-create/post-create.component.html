@@ -1,6 +1,6 @@
 <mat-card>
   <mat-form-field>
-    <textarea matInput name="commend2" id="text2" cols="10" rows="6" placeholder="Post" [(ngModel)]="enteredValue"></textarea>
+    <textarea matInput name="commend2" id="text2" cols="10" rows="3" placeholder="Post" [(ngModel)]="enteredValue"></textarea>
   </mat-form-field>
   <button mat-raised-button
    color="accent"
@@ -9,8 +9,6 @@
 </mat-card>
 
 <p>post-create works!</p>
-
-<textarea name="commend" id="text1" cols="30" rows="10" [value]="newPost" #PostInput></textarea>
+<textarea name="commend" id="text1" cols="10" rows="1" [value]="newPost" #PostInput></textarea>
 <hr>
-<input  type="text" [value]="'ciao'">
   <p>{{newPost}}</p>
