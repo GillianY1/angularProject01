@@ -1,14 +1,38 @@
 <mat-card>
-  <mat-form-field>
-    <input type="text" matInput name="title" id="title" placeholder="Title" [(ngModel)]="enteredTitle">
-  </mat-form-field>
-  <mat-form-field>
-    <textarea matInput name="commend2" id="text2" cols="10" rows="3" placeholder="Post" [(ngModel)]="enteredContent"></textarea>
-  </mat-form-field>
-  <button mat-raised-button
-   color="accent"
-   (click)="onAddPost()">Save Post
-  </button>
+  <form (submit)="onAddPost(postForm)" #postForm="ngForm" >
+    <mat-form-field>
+      <input type="text"
+      matInput
+      name="title"
+      id="title" placeholder="Title"
+      required
+      minlength="3"
+      #title="ngModel"
+      ngModel>
+      <mat-error *ngIf="title.invalid">Please enter a valid post title</mat-error>
+
+      <!--mat-error *ngIf="postForm.getControl('title').invalid">Please enter a post title</mat-error-->
+      <!-- [formControl]="title" -->
+      <!-- failed in angular CLI 17-->
+
+     <!-- @if (title.invalid) {
+        <mat-error>{{getErrorMessage()}}</mat-error>
+      }-->
+    </mat-form-field>
+    <mat-form-field>
+      <textarea
+      matInput
+      name="content"
+      id="text2" cols="10" rows="3"
+      placeholder="Post"
+      #content ="ngModel"
+      ngModel></textarea>
+    </mat-form-field>
+    <button mat-raised-button
+    color="accent"
+    type="submit">Save Post
+    </button>
+</form>
 </mat-card>
 
 <p>post-create works!</p>
