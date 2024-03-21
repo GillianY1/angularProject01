@@ -1,8 +1,8 @@
 const http = require('http');
+const app = require('./backend/app');
+const port = process.env.PORT || 3000
 
-http.createServer((req, res) => {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Hello Gina\n');
-}).listen( process.env.PORT || 3000, 'localhost');
+app.set('port', port);
+http.createServer(app).listen(port);
 
 console.log('Server running at http://localhost:3000/');
