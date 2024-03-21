@@ -1,15 +1,33 @@
 const exprss = require('express');
 const app = exprss(); // middleware
 const http = require('http');
+const bodyParser = require('body-parser');
 
 const server = http.createServer(app);
 const port = process.env.PORT || 3000;
 
-/*app.use((req, res, next)=>{
-  console.log('Request URL: ' + req.url);
+app.use(bodyParser.json()); // to parse the incoming request
+app.use(bodyParser.urlencoded({extended: false})); // to parse the incoming request
+
+app.use((req, res, next)=>{ // next() is used to pass the request
+  res.setHeader('Access-Control-Allow-Origin', '*'); // * means any domain can access the server
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  // means the incoming request may have these headers
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS');
+  // options is used to check if the server is ready to accept the request, shall add it
+  // it's an implicit request sent by the browser
   next();
-})
-*/
+});
+
+// to handle post requests
+app.post("api/posts",(req, res, next)=>{
+  const post = req.body;
+  console.log(post);
+  res.status(201).json({
+    message: 'Post added successfully'
+  });
+});
+
 
 app.use("/api/posts",(req, res, next)=>{
   const posts = [
