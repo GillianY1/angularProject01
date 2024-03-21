@@ -3,6 +3,8 @@ const app = exprss(); // middleware
 const http = require('http');
 const bodyParser = require('body-parser');
 
+const Post = require('./models/post');
+
 const server = http.createServer(app);
 const port = process.env.PORT || 3000;
 
@@ -21,7 +23,11 @@ app.use((req, res, next)=>{ // next() is used to pass the request
 
 // to handle post requests
 app.post("api/posts",(req, res, next)=>{
-  const post = req.body;
+  const post = new Post({
+    title: req.body.title,
+    content: req.body.content
+  }); //req.body;
+
   console.log(post);
   res.status(201).json({
     message: 'Post added successfully'
