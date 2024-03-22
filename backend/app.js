@@ -2,11 +2,20 @@ const exprss = require('express');
 const app = exprss(); // middleware
 const http = require('http');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const Post = require('./models/post');
 
 const server = http.createServer(app);
 const port = process.env.PORT || 3000;
+
+mongoose.connect('mongodb+srv://mindy:UrLFUJxz60MxwnSq@cluster0.v5msgya.mongodb.net/')
+.then(()=>{
+  console.log('Connected to database!');
+})
+.catch(()=>{
+  console.log('Connection failed!');
+});
 
 app.use(bodyParser.json()); // to parse the incoming request
 app.use(bodyParser.urlencoded({extended: false})); // to parse the incoming request
