@@ -9,7 +9,7 @@ const Post = require('./models/post');
 const server = http.createServer(app);
 const port = process.env.PORT || 3000;
 
-mongoose.connect('mongodb+srv://mindy:XXXX@cluster0.v5msgya.mongodb.net/meanCourse?retryWrites=true&w=majority&appName=Cluster0')
+mongoose.connect('mongodb+srv://id:pwd@cluster0.v5msgya.mongodb.net/meanCourse?retryWrites=true&w=majority&appName=Cluster0')
 .then(()=>{
   console.log('Connected to database!');
 })
