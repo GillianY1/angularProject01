@@ -1,5 +1,5 @@
-const exprss = require('express');
-const app = exprss(); // middleware
+const express = require('express');
+const app = express(); // middleware
 const http = require('http');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -9,7 +9,7 @@ const Post = require('./models/post');
 const server = http.createServer(app);
 const port = process.env.PORT || 3000;
 
-mongoose.connect('mongodb+srv://id:pwd@cluster0.v5msgya.mongodb.net/meanCourse?retryWrites=true&w=majority&appName=Cluster0')
+mongoose.connect('mongodb+srv://name:pwd@cluster0.v5msgya.mongodb.net/meanCourse?retryWrites=true&w=majority&appName=Cluster0')
 .then(()=>{
   console.log('Connected to database!');
 })
@@ -36,18 +36,23 @@ app.post("/api/posts",(req, res, next)=>{
     title: req.body.title,
     content: req.body.content
   });
-  console.log(post);
+  //console.log(post);
   post.save();
   res.status(201).json({
     message: 'Post added successfully'
   });
 });
 
+app.delete("/api/posts/:id", (req, res, next)=>{
+  Post.deleteOne({_id: req.params.id}).then((result)=>{
+    res.status(200).json({message: 'Post deleted!'});
+  });
+});
 
 app.use("/api/posts",(req, res, next)=>{
   Post.find()
     .then((documents)=>{
-      console.log(documents);
+      //console.log(documents);
       res.status(200).json({
         message: 'Posts fetched successfully!',
         posts: documents.map((doc)=>{ // map() is used to transform the array
@@ -62,9 +67,8 @@ app.use("/api/posts",(req, res, next)=>{
   .catch((err)=>{
       console.log(err);
  });
-
   //res.send('Hello from express!');
-
 })
+
 
 module.exports = app;

@@ -23,7 +23,6 @@ export class PostsService {
    constructor(private http: HttpClient) { }
 
   getPosts(){
-
     // shall be post._id but "post.id" works ,
     this.http.get<{message: string, posts: Post[]}>('http://localhost:3000/api/posts')
     .pipe(map((postData) => {
@@ -54,4 +53,12 @@ export class PostsService {
     });
   }
 
+  deletePost(postId: string){
+    this.http.delete('http://localhost:3000/api/posts/' + postId)
+    .subscribe((result) => {
+      console.log('Deleted:' + result);
+    }, error => {
+      console.error('Error deleting post:', error);
+    });
+  }
 }
