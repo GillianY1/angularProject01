@@ -9,8 +9,8 @@ const Post = require('./models/post');
 const server = http.createServer(app);
 const port = process.env.PORT || 3000;
 
-//username:pwd
-mongoose.connect('mongodb+srv://username:pwd@cluster0.v5msgya.mongodb.net/meanCourse?retryWrites=true&w=majority&appName=Cluster0')
+
+mongoose.connect('mongodb+srv://namd:pwd@cluster0.v5msgya.mongodb.net/meanCourse?retryWrites=true&w=majority&appName=Cluster0')
 .then(()=>{
   console.log('Connected to database!');
 })
@@ -38,19 +38,22 @@ app.post("/api/posts",(req, res, next)=>{
     content: req.body.content
   });
   //console.log(post);
-  post.save();
-  res.status(201).json({
-    message: 'Post added successfully'
+  post.save().then( createdPost => {
+    res.status(201).json({
+      message: 'Post added successfully',
+      postId: createdPost._id
+    });
   });
 });
 
 app.delete("/api/posts/:id", (req, res, next)=>{
   Post.deleteOne({_id: req.params.id}).then((result)=>{
+    console.log(result);
     res.status(200).json({message: 'Post deleted!'});
   });
 });
 
-app.use("/api/posts",(req, res, next)=>{
+app.get("/api/posts",(req, res, next)=>{
   Post.find()
     .then((documents)=>{
       //console.log(documents);
@@ -69,7 +72,9 @@ app.use("/api/posts",(req, res, next)=>{
       console.log(err);
  });
   //res.send('Hello from express!');
-})
+});
+
+//app.use("api/post" .... will handle all the requests starting with /api/post, no matter what the method is
 
 
 module.exports = app;
